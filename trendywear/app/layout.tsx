@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-const josefin = Josefin_Sans({
+const josefinSans = Josefin_Sans({
+  variable: "--font-josefin-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -19,12 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${josefin.className} antialiased`}>
-        {/* GLOBAL NAVBAR */}
+      <body
+        className={`${josefinSans.variable} antialiased`}
+      >
         <Navbar />
-
-        {/* PAGE CONTENT */}
         {children}
+        <Footer />
       </body>
     </html>
   );
