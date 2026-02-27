@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation'; 
+
 import { 
   MdOutlineSearch, 
   MdFavoriteBorder, 
@@ -12,6 +14,7 @@ import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname(); 
 
   const links = [
     { label: "Products", href: "/products-page" },
@@ -29,28 +32,39 @@ export default function Navbar() {
   const iconStyle =
     "p-2 rounded-full border border-[#003049] text-[#003049] hover:bg-[#003049]/10 transition flex items-center justify-center";
 
+  const getLinkStyle = (href: string, isIcon = false) => {
+    const isActive = pathname === href;
+    const base = "transition-all duration-300 flex items-center justify-center rounded-full border border-[#003049]";
+    
+    if (isActive) {
+      return `${base} bg-[#003049] text-white shadow-md ${isIcon ? 'p-2' : 'px-6 py-2 '}`;
+    }
+    
+    return `${base} text-[#003049] border-transparent hover:border-[#003049] hover:bg-[#003049]/5 ${isIcon ? 'p-2' : 'px-6 py-2 font-medium'}`;
+  };
+
   return (
     <nav className="w-full bg-[#f8f9fa] border-b border-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6 flex items-center">
 
         {/* Left Links */}
-        <div className="hidden md:flex flex-1 justify-evenly text-[#003049] font-medium text-lg">
+        <div className="hidden lg:flex flex-1 justify-evenly text-[#003049] font-medium text-lg">
           {links.map((link, idx) => (
-            <Link key={idx} href={link.href} className="hover:text-black transition-colors">
+            <Link key={idx} href={link.href} className={getLinkStyle(link.href)}>
               {link.label}
             </Link>
           ))}
         </div>
 
         {/* Logo */}
-        <div className="flex-shrink-0 md:px-16 px-2 text-center">
+        <div className="flex-shrink-0 lg:px-16 px-2 text-center">
           <Link href="/" className="text-2xl font-bold text-[#C1121F] uppercase">
             Trendy Wear
           </Link>
         </div>
 
         {/* Right Icons / Hamburger */}
-        <div className="flex-1 hidden md:flex justify-evenly items-center">
+        <div className="flex-1 hidden lg:flex justify-evenly items-center">
           {icons.map((item, idx) => (
             <button key={idx} className={iconStyle} aria-label={item.label}>
               {item.icon}
@@ -59,7 +73,7 @@ export default function Navbar() {
         </div>
 
         {/* Hamburger (Mobile Only) */}
-        <div className="flex md:hidden ml-auto">
+        <div className="flex lg:hidden ml-auto">
           <button
             className="p-2 text-[#003049] hover:bg-[#003049]/10 rounded transition"
             onClick={() => setMenuOpen(!menuOpen)}
