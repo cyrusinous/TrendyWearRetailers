@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "next/navigation";
-import Breadcrumb from "@/app/components/Breadcrumb";
-import ProductCard from "@/app/components/ProductCard";
+import Breadcrumb from "@/app/(site)/components/Breadcrumb";
+import ProductCard from "@/app/(site)/components/ProductCard";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
